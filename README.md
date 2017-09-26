@@ -4,11 +4,11 @@
 
 Properties are key/value pairs usually used to manage configuration values. In each pair, the key and value are both string values. The key identifies, and is used to retrieve, the value. Despite being stored as string, the values can be retrieved as the type specified by the user.
 
-The **cxxproperties** is a header only C++ library that offers an easy-to-use Properties class. You just need to include the header file `cxxproperties.hpp` and that's it. You can aready instantiate `cxxproperties::Properties` objects in your C++ code.
+The **cxxproperties** is a header only C++ library that offers an easy-to-use Properties class. You just need to include the header file `cxxproperties.hpp` and that's it. You can already instantiate `cxxproperties::Properties` objects in your C++ code.
 
 ## Quick Start
 
-The code below shows how to use **cxxproperties** library. For a more detailed example, see the `example/example.cpp` file in this repository.
+The code below shows how to use **cxxproperties** library. For a more detailed example that shows all methods offered by `cxxproperties::Properties` class, see the `example/example.cpp` file in this repository.
 
 ```cpp
 #include <cxxproperties.hpp>
