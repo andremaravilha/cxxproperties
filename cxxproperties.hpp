@@ -58,7 +58,7 @@ namespace cxxproperties {
          * @param   other
          *          The object to be copied.
          */
-        Properties(const Properties &other) = default;
+        Properties(const Properties& other) = default;
 
         /**
          * Transfer constructor.
@@ -66,7 +66,7 @@ namespace cxxproperties {
          * @param   other
          *          The object to be transfered.
          */
-        Properties(Properties &&other) = default;
+        Properties(Properties&& other) = default;
 
         /**
          * Destructor.
@@ -81,7 +81,7 @@ namespace cxxproperties {
          *
          * @return  A reference to this object.
          */
-        Properties &operator=(const Properties &other) = default;
+        Properties& operator=(const Properties& other) = default;
 
         /**
          * Assignment operator by transfer.
@@ -91,7 +91,7 @@ namespace cxxproperties {
          *
          * @return  A reference to this object.
          */
-        Properties &operator=(Properties &&other) = default;
+        Properties& operator=(Properties&& other) = default;
 
         /**
          * Get a property by key.
@@ -102,7 +102,7 @@ namespace cxxproperties {
          * @return  The value.
          */
         template<class T = std::string>
-        T get(const std::string &key) const;
+        T get(const std::string& key) const;
 
         /**
          * Get a property by its key.
@@ -117,7 +117,23 @@ namespace cxxproperties {
          *          does not contains the key specified.
          */
         template<class T>
-        T get(const std::string &key, const T &default_value) const;
+        T get(const std::string& key,
+              const T& default_value) const;
+
+        /**
+         * Get a property by its key.
+         *
+         * @param   key
+         *          The key.
+         * @param   default_value
+         *          The value to be returned if this class does not contains any
+         *          property with the key specified.
+         *
+         * @return  The value of the property or the default value if this class
+         *          does not contains the key specified.
+         */
+        std::string get(const std::string& key, 
+                        const std::string& default_value) const;
 
         /**
          * Add a new pair key-value.
@@ -128,7 +144,8 @@ namespace cxxproperties {
          *          The value.
          */
         template<class T>
-        void add(const std::string &key, const T &value);
+        void add(const std::string& key, 
+                 const T& value);
 
         /**
          * Remove a property by the key.
@@ -136,7 +153,7 @@ namespace cxxproperties {
          * @param   key
          *          The key.
          */
-        void remove(const std::string &key);
+        void remove(const std::string& key);
 
         /**
          * Return a set with keys of the properties in this object.
@@ -170,7 +187,7 @@ namespace cxxproperties {
 
 
     template<class T>
-    T Properties::get(const std::string &key) const {
+    T Properties::get(const std::string& key) const {
 
         // Load the value into a stream
         std::stringstream stream;
@@ -184,12 +201,12 @@ namespace cxxproperties {
     }
 
     template<>
-    inline std::string Properties::get<std::string>(const std::string &key) const {
+    inline std::string Properties::get<std::string>(const std::string& key) const {
         return properties_.at(key);
     }
 
     template<class T>
-    T Properties::get(const std::string &key, const T &default_value) const {
+    T Properties::get(const std::string& key, const T& default_value) const {
 
         // Check whether there is a property with the key
         if (contains(key)) {
@@ -200,8 +217,20 @@ namespace cxxproperties {
         return default_value;
     }
 
+    inline std::string Properties::get(const std::string& key, 
+            const std::string& default_value) const {
+
+        // Check whether there is a property with the key
+        if (contains(key)) {
+            return get(key);
+        }
+
+        // Return the default value
+        return default_value;
+    }
+
     template<class T>
-    void Properties::add(const std::string &key, const T &value) {
+    void Properties::add(const std::string& key, const T& value) {
 
         // Load the value into a stream
         std::stringstream stream;
@@ -211,7 +240,7 @@ namespace cxxproperties {
         properties_[key] = stream.str();
     }
 
-    inline void Properties::remove(const std::string &key) {
+    inline void Properties::remove(const std::string& key) {
         properties_.erase(key);
     }
 
